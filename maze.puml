@@ -1,0 +1,77 @@
+@startuml maze
+
+    enum Direction {
+        UP
+        DOWN
+        LEFT
+        RIGHT
+    }
+
+    class Position {
+        - int x
+        - int y
+        + Position add(Position other)
+        + Position move(Direction direction)
+        + String toString()
+    }
+
+    interface MazeSolver {
+        + Path solve(Maze maze)
+    }
+
+    class Path {
+        - List<Character> path
+        + Path()
+        + Path(String pathStr)
+        + String expandFactorizedStringPath(String path)
+        + List<Character> getPathSteps()
+        + void addStep(Character step)
+        + String getCanonicalForm()
+        + String getFactorizedForm()
+    }
+
+    class Maze {
+        - List<List<Boolean>> maze
+        - Position start
+        - Position end
+        + Maze(String filePath)
+        + Position findStart()
+        + Position findEnd()
+        + Boolean isWall(Position pos)
+        + Position getStart()
+        + Position getEnd()
+        + int getSizeX()
+        + int getSizeY()
+        + Boolean validatePath(Path path)
+        - Boolean validatePathDir(Path path, Position startPos, Direction startDir, Position endPos)
+    }
+
+    class RightHandSolver {
+        + Path solve(Maze maze)
+    }
+
+    class TremauxSolver {
+        - int[][] marks
+        - Maze maze
+        + Path solve(Maze maze)
+        - void markEntrances()
+        - int nbMarkedNeighbors(List<Position> neighbors)
+        - Position pickNeighbor(List<Position> neighbors)
+        - List<Position> getMazeNeighbors(Position pos)
+        - Path tracePath()
+        - boolean isInBounds(Position position, int sizeX, int sizeY)
+    }
+
+    class Main {
+        - static Logger logger
+        + static void main(String[] args)
+        - static Path solveMaze(String method, Maze maze)
+        - static Options getParserOptions()
+    }
+    
+    MazeSolver ..> RightHandSolver
+    MazeSolver ..> TremauxSolver
+    Maze <-- MazeSolver
+    Path <-- Maze
+
+@enduml
