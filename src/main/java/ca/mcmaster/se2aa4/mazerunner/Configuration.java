@@ -20,6 +20,7 @@ public class Configuration {
     public String getOptionP() {
         return optionP;
     }
+
     // creates new objects
     MazeGenerator mazeGenerator = new MazeGenerator();
     PathFinder pathFinder = new PathFinder();
@@ -33,8 +34,8 @@ public class Configuration {
         try {
             logger.info("** Starting Maze Runner");
             // creates option tags i and p
-            options.addOption("i", true, "put ur -i in there buddy");
-            options.addOption("p", true, "put ur -p in there buddy");   
+            options.addOption("i", true, "put -i in the command line");
+            options.addOption("p", true, "put -p in the command line");   
             CommandLine cmd = parser.parse(options, args);
             String optionValue = cmd.getOptionValue("i");
             String optionPValue = cmd.getOptionValue("p");
@@ -44,10 +45,10 @@ public class Configuration {
             mazeGenerator.maze(getFilename());
             char[][] newMaze = mazeGenerator.getMaze();
             implement.findPath(newMaze);
-            System.out.println(implement.getPathString());
+            logger.info(implement.getPathString());
             pathVerifier.verifiedPathEast(newMaze, getOptionP());
             pathVerifier.verifiedPathWest(newMaze, getOptionP());
-            System.out.println("Is path verified: " + pathVerifier.statement(newMaze, getOptionP()));
+            logger.info("Is path verified: " + pathVerifier.statement(newMaze, getOptionP()));
         } 
         
         catch(Exception e) {

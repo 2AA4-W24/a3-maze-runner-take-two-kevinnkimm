@@ -10,8 +10,10 @@ public class PathFinder implements Finder {
     private int entryColumn;
     private int exitRow;
     private int exitColumn;
-    private char orientation;    
-    
+    private Direction orientation;
+    private MazeGenerator mazeGenerator;
+    private char[][] maze = mazeGenerator.getMaze();
+
     // returns strings values of paths
     private String returnAllStrings() {
         System.out.println("Canonical path from east direction: " + addSpace());
@@ -85,17 +87,17 @@ public class PathFinder implements Finder {
     public void rightOrientation() {
 
         switch (orientation){
-            case 'N':
-                orientation = 'E';
+            case N:
+                orientation = Direction.E;
                 break;
-            case 'E':
-                orientation = 'S';
+            case E:
+                orientation = Direction.S;
                 break;
-            case 'S':
-                orientation = 'W';
+            case S:
+                orientation = Direction.W;
                 break;
-            case 'W':
-                orientation = 'N';
+            case W:
+                orientation = Direction.N;
                 break;
 
         }
@@ -106,43 +108,42 @@ public class PathFinder implements Finder {
     public void leftOrientation() {
         
         switch (orientation) {
-            case 'N':
-                orientation = 'W';
+            case N:
+                orientation = Direction.W;
                 break;
-            case 'E':
-                orientation = 'N';
+            case E:
+                orientation = Direction.N;
                 break;
-            case 'S':
-                orientation = 'E';
+            case S:
+                orientation = Direction.E;
                 break;
-            case 'W':
-                orientation = 'S';
+            case W:
+                orientation = Direction.S;
                 break;
 
         }
     }
     // checks if there is a '#' in the front
-    private boolean frontChecker(char[][] maze) {
-
-        if (orientation == 'W') {
+    private boolean frontChecker() {
+        if (orientation == Direction.W) {
             if (maze[row][column-1] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'S') {
+        else if (orientation == Direction.S) {
             if (maze[row+1][column] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'E') {
+        else if (orientation == Direction.E) {
             if (maze[row][column+1] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'N') {
+        else if (orientation == Direction.N) {
             if (maze[row-1][column] == '#') {
                 return false;
             } 
@@ -151,27 +152,27 @@ public class PathFinder implements Finder {
     }
     
     // checks if there is a '#' in the right
-    private boolean rightChecker(char[][] maze) {
+    private boolean rightChecker() {
 
-        if (orientation == 'W') {
+        if (orientation == Direction.W) {
             if (maze[row-1][column] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'S') {
+        else if (orientation == Direction.S) {
             if (maze[row][column-1] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'E') {
+        else if (orientation == Direction.E) {
             if (maze[row+1][column] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'N') {
+        else if (orientation == Direction.N) {
             if (maze[row][column+1] == '#') {
                 return false;
             } 
@@ -179,27 +180,27 @@ public class PathFinder implements Finder {
         return true;
     }
     // checks if there is a '#' in the left
-    private boolean leftChecker(char[][] maze) {
+    private boolean leftChecker() {
 
-        if (orientation == 'W') {
+        if (orientation == Direction.W) {
             if (maze[row+1][column] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'S') {
+        else if (orientation == Direction.S) {
             if (maze[row][column+1] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'E') {
+        else if (orientation == Direction.E) {
             if (maze[row-1][column] == '#') {
                 return false;
             } 
         }
 
-        else if (orientation == 'N') {
+        else if (orientation == Direction.N) {
             if (maze[row][column-1] == '#') {
                 return false;
             } 
@@ -209,26 +210,25 @@ public class PathFinder implements Finder {
 
     // changes row and column
     private void moveForward() {
-        if (orientation == 'N') {
+        if (orientation == Direction.N) {
             row--;
         }
 
-        else if (orientation == 'E') {
+        else if (orientation == Direction.E) {
             column++;
         }
 
-        else if (orientation == 'S') {
+        else if (orientation == Direction.S) {
             row++;
         }
 
-        else if (orientation == 'W') {
+        else if (orientation == Direction.W) {
             column--;
         }
-
     }
 
     // traverses and gets entry on the maze if there is a ' ' 
-    private void getEntry(char[][] maze) {
+    private void getEntry() {
         row = 0;
         column = 0;
 
@@ -241,7 +241,7 @@ public class PathFinder implements Finder {
     }
     
     // traverses and gets exit on the maze if there is a ' '
-    private void getExit(char[][] maze) {
+    private void getExit() {
         row = 0;
         column = maze[0].length - 1;
 
@@ -256,9 +256,9 @@ public class PathFinder implements Finder {
     @Override
     public void findPath(char[][] maze) {
         // stores variables in the top state
-        getEntry(maze);
-        getExit(maze);
-        orientation = 'E';
+        getEntry();
+        getExit();
+        orientation = Direction.E;
 
         // setting start location
         row = entryRow;
@@ -267,19 +267,19 @@ public class PathFinder implements Finder {
 
         // right hand rule
         while ((row != exitRow) || (column != exitColumn)) {
-            if (rightChecker(maze)) {
+            if (rightChecker()) {
                 rightOrientation();
                 moveForward();
                 path = path + "R";
                 path = path + "F";
             }
             
-            else if (frontChecker(maze)) {
+            else if (frontChecker()) {
                 moveForward();
                 path = path + "F";
             }
 
-            else if (leftChecker(maze)) {
+            else if (leftChecker()) {
                 leftOrientation();
                 moveForward();
                 path = path + "L";
