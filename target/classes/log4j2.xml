@@ -2,13 +2,13 @@
 <Configuration status="INFO">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%-5level] %logger{0} %msg%n" />
+            <PatternLayout pattern="[%-5level] %logger{0} %msg%n"/>
         </Console>
     </Appenders>
 
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="console" />
+            <AppenderRef ref="console"/>
         </Root>
     </Loggers>
 </Configuration>
