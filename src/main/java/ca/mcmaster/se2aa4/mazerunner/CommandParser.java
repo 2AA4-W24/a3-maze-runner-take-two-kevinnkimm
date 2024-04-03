@@ -22,4 +22,3 @@ public class CommandParser {
         return parser.parse(options, args);
     }
 }
-

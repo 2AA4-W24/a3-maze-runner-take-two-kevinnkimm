@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         // calling configuration class methods
         try {
-            MazeRunner configuration = new MazeRunner();
+            Configuration configuration = new Configuration();
             configuration.MazeExporter(args);
             configuration.getFilename();
         }

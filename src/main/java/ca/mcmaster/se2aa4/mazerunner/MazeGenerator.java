@@ -79,13 +79,4 @@ public class MazeGenerator {
         
     }
 
-    public void mazeGenerator() {
-        
-    }
-
 }
-
-
-
-
-

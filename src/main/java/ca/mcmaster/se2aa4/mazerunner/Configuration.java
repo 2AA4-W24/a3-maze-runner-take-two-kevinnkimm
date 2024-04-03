@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class MazeRunner {
+public class Configuration {
 
     private static final Logger logger = LogManager.getLogger();
     private MazeGenerator mazeGenerator = new MazeGenerator();
@@ -31,7 +31,9 @@ public class MazeRunner {
             String optionPValue = cmd.getOptionValue("p");
 
             // generates maze
-            mazeGenerator.maze(filename);
+            filename = optionValue;
+            optionP = optionPValue;
+            mazeGenerator.maze(getFilename());
             char[][] newMaze = mazeGenerator.getMaze();
 
             // finding path
@@ -39,9 +41,9 @@ public class MazeRunner {
             logger.info(pathFinder.getPathString());
 
             // verification
-            pathVerifier.verifiedPathEast(newMaze, optionPValue);
-            pathVerifier.verifiedPathWest(newMaze, optionPValue);
-            logger.info("Is path verified: " + pathVerifier.statement(newMaze, optionPValue));
+            pathVerifier.verifiedPathEast(newMaze, getOptionP());
+            pathVerifier.verifiedPathWest(newMaze, getOptionP());
+            logger.info("Is path verified: " + pathVerifier.statement(newMaze, getOptionP()));
         } 
         
         catch(Exception e) {
