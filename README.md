@@ -107,7 +107,7 @@ If a given path is incorrect, the program prints the message `incorrect path` on
 
 ```
 mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 3F
-inccorrect path
+incorrect path
 mosser@azrael A1-Template %
 ```
 

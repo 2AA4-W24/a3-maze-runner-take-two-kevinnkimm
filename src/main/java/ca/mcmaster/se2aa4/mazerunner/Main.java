@@ -8,7 +8,8 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public static void main(String[] args) {
+
+    public void main(String[] args) {
         logger.info("** Starting Maze Runner");
         CommandLineParser parser = new DefaultParser();
 
