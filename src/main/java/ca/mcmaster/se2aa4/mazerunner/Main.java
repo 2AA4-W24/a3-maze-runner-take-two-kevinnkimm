@@ -60,6 +60,10 @@ public class Main {
                 logger.debug("Tremaux algorithm chosen.");
                 solver = new TremauxSolver();
             }
+            case "bfs" -> {
+                logger.debug("BFS algorithm chose.");
+                solver = new BreadthFirstSearchSolver();
+            }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }

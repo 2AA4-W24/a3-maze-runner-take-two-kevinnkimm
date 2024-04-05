@@ -1,65 +1,79 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Queue;
 
 public class BreadthFirstSearchSolver implements MazeSolver {
 
-    private static final Logger logger = LogManager.getLogger();
-    private List<List<Boolean>> grid = new ArrayList<>();
-    private Map<Integer, List<Integer>> adjacencyList = new HashMap<>();
+    private Node node;
 
     @Override
     public Path solve(Maze maze) {
-        Path path = new Path();
-        return path; // ignore these for now
+        Queue<Node> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[maze.getSizeX()][maze.getSizeY()];
+        HashMap<Position, Node> newMap = new HashMap<>(); // [1] is prev Position rlly important said Alina she
+                                                              // wants say it louder :D shes laughing is she okay
+        Position start = maze.getStart();
+        Node startNode = new Node(Direction.RIGHT, start);
 
-    }
+        queue.add(startNode);
+        visited[start.getRow()][start.getColumn()] = true;
 
-    public void adjacencyList(List<List<Boolean>> grid) {
-        int rows = grid.size();
-        int columns = grid.get(0).size();
-        int vertexCount = rows * columns;
+        while (!queue.isEmpty()) {
+            Node current = queue.remove();
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                int currIdx = i * columns + j; // Calculate 1D index
-                
-                List<Integer> neighbors = new ArrayList<>();
-                
-                // Check and add valid neighbors
-                if (i > 0 && !grid.get(i - 1).get(j)) {
-                    neighbors.add((i - 1) * columns + j); // Upper neighbor
+            if (current.getPosition().equals(maze.getEnd())) {
+                break;
+            }
+
+            for (Direction direction : Direction.values()) {
+                Position next = current.getPosition().move(direction);
+                if (maze.isValidPosition(next) && !visited[next.getRow()][next.getColumn()] && !maze.isWall(next)) {
+                    Node nextNode = new Node(direction, next);
+                    queue.add(nextNode);
+                    visited[next.getRow()][next.getColumn()] = true;
+                    // Assuming Position has a setPrevious method to track path
+                    newMap.put(next, current);
                 }
-                if (j > 0 && !grid.get(i).get(j - 1)) {
-                    neighbors.add(i * columns + (j - 1)); // Left neighbor
-                }
-                if (i < rows - 1 && !grid.get(i + 1).get(j)) {
-                    neighbors.add((i + 1) * columns + j); // Lower neighbor
-                }
-                if (j < columns - 1 && !grid.get(i).get(j + 1)) {
-                    neighbors.add(i * columns + (j + 1)); // Right neighbor
-                }
-                
-                adjacencyList.put(currIdx, neighbors);
             }
         }
-        
-        // Print the adjacency list for demonstration
-        for (Map.Entry<Integer, List<Integer>> entry : adjacencyList.entrySet()) {
-            System.out.print(entry.getKey() + ": ");
-            System.out.println(entry.getValue());
+
+        // for getting previous
+        List<Node> list = new ArrayList<>();
+        Node prev = newMap.get(maze.getEnd());
+        while (prev != null) {
+            list.add(prev);
+            prev = newMap.get(prev.getPosition());
         }
+
+        Path path = new Path();
+        list = list.reversed();
+        for (int i = 0; i < list.size() - 2; i++) {
+            path = getPath(list.get(i), list.get(i + 1), path);
+        }
+
+        return path;
     }
 
-    private void queue() {
+    private Path getPath(Node first, Node second, Path previousPath) {
+        // calculate first and second one somehow
+        // figure out
+        
+
+        
+        previousPath.addStep('F');
+        return previousPath;
+
 
     }
-
 }
+
+// Queue start with a node
+// while queue is not empty, take the next node from the queue
+// mark as visited node
+// then every single edges that the node is connected to, add them to the queue
+//
