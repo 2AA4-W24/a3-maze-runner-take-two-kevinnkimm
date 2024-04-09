@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.417" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.264" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/21.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire/surefirebooter-20240404184239349_3.jar /Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire 2024-04-04T18-42-39_293-jvmRun1 surefire-20240404184239349_1tmp surefire_0-20240404184239349_2tmp"/>
+    <property name="sun.java.command" value="/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire/surefirebooter-20240408221617413_3.jar /Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire 2024-04-08T22-16-17_362-jvmRun1 surefire-20240408221617413_1tmp surefire_0-20240408221617413_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/test-classes:/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/classes:/Users/kevinkim/.m2/repository/commons-cli/commons-cli/1.6.0/commons-cli-1.6.0.jar:/Users/kevinkim/.m2/repository/org/apache/logging/log4j/log4j-api/2.22.1/log4j-api-2.22.1.jar:/Users/kevinkim/.m2/repository/org/apache/logging/log4j/log4j-core/2.22.1/log4j-core-2.22.1.jar:/Users/kevinkim/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.1/junit-jupiter-5.10.1.jar:/Users/kevinkim/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar:/Users/kevinkim/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/kevinkim/.m2/repository/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.jar:/Users/kevinkim/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/kevinkim/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.1/junit-jupiter-params-5.10.1.jar:/Users/kevinkim/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.1/junit-jupiter-engine-5.10.1.jar:/Users/kevinkim/.m2/repository/org/junit/platform/junit-platform-engine/1.10.1/junit-platform-engine-1.10.1.jar:"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire/surefirebooter-20240404184239349_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/target/surefire/surefirebooter-20240408221617413_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21.0.2"/>
@@ -59,24 +59,96 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="adjacencyListTest" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.398">
-    <system-out><![CDATA[0: []
-1: [0, 4, 2]
-2: []
-3: [0, 6, 4]
-4: []
-5: [2, 4, 8]
-6: []
-7: [4, 6, 8]
-8: []
+  <testcase name="getBFS" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.245">
+    <system-out><![CDATA[on cell: Position(0,2) looking at edge: Position(1,2)
+on cell: Position(1,2) looking at edge: Position(2,2)
+on cell: Position(2,2) looking at edge: Position(3,2)
+on cell: Position(3,2) looking at edge: Position(4,2)
+we've just added the first position i believe
+we've just added to prev: Position(3,2)
+we've just added to prev: Position(2,2)
+we've just added to prev: Position(1,2)
+we've just added to prev: Position(0,2)
+get pathing for Position(0,2)
+we're looking at Position(0,2) and Position(1,2)
+it's forward
+get pathing for Position(1,2)
+we're looking at Position(1,2) and Position(2,2)
+it's forward
+get pathing for Position(2,2)
+we're looking at Position(2,2) and Position(3,2)
+it's forward
+get pathing for Position(3,2)
+we're looking at Position(3,2) and Position(3,2)
+it's forward
+complete
 ]]></system-out>
   </testcase>
-  <testcase name="queueTest" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.001">
-    <system-out><![CDATA[[Jackson, Darren, Chloe]
+  <testcase name="expandedPath" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.0"/>
+  <testcase name="getTinyBFS" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.004">
+    <system-out><![CDATA[on cell: Position(0,5) looking at edge: Position(1,5)
+on cell: Position(1,5) looking at edge: Position(2,5)
+on cell: Position(2,5) looking at edge: Position(3,5)
+on cell: Position(3,5) looking at edge: Position(3,4)
+on cell: Position(3,5) looking at edge: Position(4,5)
+on cell: Position(3,4) looking at edge: Position(3,3)
+on cell: Position(4,5) looking at edge: Position(5,5)
+on cell: Position(3,3) looking at edge: Position(3,2)
+on cell: Position(3,3) looking at edge: Position(2,3)
+on cell: Position(3,3) looking at edge: Position(4,3)
+on cell: Position(3,2) looking at edge: Position(3,1)
+on cell: Position(2,3) looking at edge: Position(1,3)
+on cell: Position(4,3) looking at edge: Position(5,3)
+on cell: Position(3,1) looking at edge: Position(2,1)
+on cell: Position(3,1) looking at edge: Position(4,1)
+on cell: Position(2,1) looking at edge: Position(1,1)
+on cell: Position(4,1) looking at edge: Position(5,1)
+on cell: Position(5,1) looking at edge: Position(6,1)
+we've just added the first position i believe
+we've just added to prev: Position(5,1)
+we've just added to prev: Position(4,1)
+we've just added to prev: Position(3,1)
+we've just added to prev: Position(3,2)
+we've just added to prev: Position(3,3)
+we've just added to prev: Position(3,4)
+we've just added to prev: Position(3,5)
+we've just added to prev: Position(2,5)
+we've just added to prev: Position(1,5)
+we've just added to prev: Position(0,5)
+get pathing for Position(0,5)
+we're looking at Position(0,5) and Position(1,5)
+it's forward
+get pathing for Position(1,5)
+we're looking at Position(1,5) and Position(2,5)
+it's forward
+get pathing for Position(2,5)
+we're looking at Position(2,5) and Position(3,5)
+it's forward
+get pathing for Position(3,5)
+we're looking at Position(3,5) and Position(3,4)
+it's left
+get pathing for Position(3,4)
+we're looking at Position(3,4) and Position(3,3)
+it's forward
+get pathing for Position(3,3)
+we're looking at Position(3,3) and Position(3,2)
+it's forward
+get pathing for Position(3,2)
+we're looking at Position(3,2) and Position(3,1)
+it's forward
+get pathing for Position(3,1)
+we're looking at Position(3,1) and Position(4,1)
+it's right
+get pathing for Position(4,1)
+we're looking at Position(4,1) and Position(5,1)
+it's forward
+get pathing for Position(5,1)
+we're looking at Position(5,1) and Position(5,1)
+it's forward
+complete
 ]]></system-out>
   </testcase>
-  <testcase name="expandedPath" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.002"/>
   <testcase name="getFactorizedForm" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.001"/>
-  <testcase name="getCanonicalForm" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.001"/>
+  <testcase name="getCanonicalForm" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.0"/>
   <testcase name="expandedPath2" classname="ca.mcmaster.se2aa4.mazerunner.PathTest" time="0.0"/>
 </testsuite>

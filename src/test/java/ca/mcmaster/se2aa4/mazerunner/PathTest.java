@@ -4,11 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 class PathTest {
+
     @Test
     void getCanonicalForm() {
         Path path = new Path("FLFFFFFRFFRFFLFFFFFFRFFFFLF");
@@ -37,21 +34,27 @@ class PathTest {
         assertEquals("FFFFFFFFFF RRRRRRRRRRR", path.getCanonicalForm());
     }
 
-    // @Test
-    // void adjacencyListTest() {
-    // BreadthFirstSearchSolver hi = new BreadthFirstSearchSolver();
-    // List<List<Boolean>> grid = new ArrayList<>();
-    // grid.add(Arrays.asList(false, true, false)); // Example row 1
-    // grid.add(Arrays.asList(true, false, true)); // Example row 2
-    // grid.add(Arrays.asList(false, true, false)); // Example row 3
+    @Test
+    void getBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/straight.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "4F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
 
-    // hi.adjacencyList(grid);
-    // }
+    @Test
+    void getTinyBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/tiny.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "3F L 4F R 3F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
 
-    // @Test
-    // void queueTest() {
-    // BreadthFirstSearchSolver hi = new BreadthFirstSearchSolver();
-    // hi.queue();
-    // }
 
 }
