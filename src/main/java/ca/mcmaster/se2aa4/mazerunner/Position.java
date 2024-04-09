@@ -6,10 +6,19 @@ public record Position(int x, int y) {
      *
      * @param other Other position
      * @return Sum of both positions
-     */
+     */    
     public Position add(Position other) {
         return new Position(this.x + other.x, this.y + other.y);
     }
+
+    public int getRow() {
+        return this.y;
+    }
+
+    public int getColumn() {
+        return this.x;
+    }
+
 
     /**
      * Return the new position after moving in provided direction.

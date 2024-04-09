@@ -24,18 +24,19 @@ public class Maze {
      */
     public Maze(String filePath) throws Exception {
         logger.debug("Reading the maze from file " + filePath);
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            List<Boolean> newLine = new ArrayList<>();
-            for (int idx = 0; idx < line.length(); idx++) {
-                if (line.charAt(idx) == '#') {
-                    newLine.add(true);
-                } else if (line.charAt(idx) == ' ') {
-                    newLine.add(false);
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                List<Boolean> newLine = new ArrayList<>();
+                for (int idx = 0; idx < line.length(); idx++) {
+                    if (line.charAt(idx) == '#') {
+                        newLine.add(true);
+                    } else if (line.charAt(idx) == ' ') {
+                        newLine.add(false);
+                    }
                 }
+                maze.add(newLine);
             }
-            maze.add(newLine);
         }
         start = findStart();
         end = findEnd();
@@ -160,5 +161,11 @@ public class Maze {
         }
 
         return pos.equals(endPos);
+    }
+
+    public boolean isValidPosition(Position pos) {
+        return pos.x() >= 0 && pos.x() < getSizeX() &&
+               pos.y() >= 0 && pos.y() < getSizeY() &&
+               !isWall(pos);
     }
 }
