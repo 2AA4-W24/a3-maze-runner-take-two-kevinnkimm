@@ -8,8 +8,7 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger();
 
-
-    public void main(String[] args) {
+    public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
         CommandLineParser parser = new DefaultParser();
 
@@ -59,10 +58,6 @@ public class Main {
             case "tremaux" -> {
                 logger.debug("Tremaux algorithm chosen.");
                 solver = new TremauxSolver();
-            }
-            case "bfs" -> {
-                logger.debug("BFS algorithm chose.");
-                solver = new BreadthFirstSearchSolver();
             }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");

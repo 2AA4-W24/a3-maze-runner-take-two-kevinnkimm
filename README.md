@@ -1,6 +1,6 @@
-# Assignment A3 - Maze Runner
+# Assignment A1 - Maze Runner
 
-* **Student**: [Chang Hyun Kim](kimc91@mcmaster.ca)
+* **Student**: [FIRSTNAME LASTNAME](MACID@mcmaster.ca)
 * **Program**: B. Eng. In Software Engineering
 * **Course code**: SFWRENG 2AA4
 * **Course Title**: Software Design I - Introduction to Software Development
@@ -107,7 +107,7 @@ If a given path is incorrect, the program prints the message `incorrect path` on
 
 ```
 mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 3F
-incorrect path
+inccorrect path
 mosser@azrael A1-Template %
 ```
 

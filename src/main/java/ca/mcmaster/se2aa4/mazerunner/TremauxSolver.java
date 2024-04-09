@@ -1,6 +1,8 @@
 package ca.mcmaster.se2aa4.mazerunner;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
