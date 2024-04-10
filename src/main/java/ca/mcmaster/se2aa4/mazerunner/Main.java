@@ -1,10 +1,10 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.*; // NO PMD false positive, Main needs to import this to use parsing
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Main {
+public abstract class Main {
 
     private static final Logger logger = LogManager.getLogger();
 

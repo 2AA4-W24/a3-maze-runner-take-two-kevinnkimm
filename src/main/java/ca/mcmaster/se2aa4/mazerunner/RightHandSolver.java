@@ -37,7 +37,9 @@ public class RightHandSolver implements MazeSolver {
                     path.addStep('R');
                 }
             }
-            logger.debug("Current Position: " + currentPos.toString() + "\n Current Path: " + path.getCanonicalForm());
+            if (logger.isDebugEnabled()) {
+                logger.debug("Current Position: " + currentPos.toString() + "\n Current Path: " + path.getCanonicalForm());
+            }
         }
 
         return path;

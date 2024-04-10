@@ -163,7 +163,7 @@ public class Maze {
                     break;
                 }
             }
-            logger.debug("Current Position: " + pos);
+            if (logger.isDebugEnabled()) {logger.debug("Current Position: " + pos);}
         }
 
         return pos.equals(endPos);

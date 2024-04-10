@@ -87,16 +87,16 @@ public class TremauxSolver implements MazeSolver {
         List<Position> neighbors = new ArrayList<>();
 
         Position left = pos.add(new Position(-1, 0));
-        if (left.x() >= 0 && !maze.isWall(left)) neighbors.add(left);
+        if (left.x() >= 0 && !maze.isWall(left)) {neighbors.add(left);}
 
         Position right = pos.add(new Position(1, 0));
-        if (right.x() < maze.getSizeX() && !maze.isWall(right)) neighbors.add(right);
+        if (right.x() < maze.getSizeX() && !maze.isWall(right)) {neighbors.add(right);}
 
         Position up = pos.add(new Position(0, -1));
-        if (up.y() >= 0 && !maze.isWall(up)) neighbors.add(up);
+        if (up.y() >= 0 && !maze.isWall(up)) {neighbors.add(up);}
 
         Position down = pos.add(new Position(0, 1));
-        if (down.y() < maze.getSizeY() && !maze.isWall(down)) neighbors.add(down);
+        if (down.y() < maze.getSizeY() && !maze.isWall(down)) {neighbors.add(down);}
 
         return neighbors;
     }
