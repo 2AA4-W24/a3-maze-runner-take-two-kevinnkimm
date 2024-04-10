@@ -1,0 +1,30 @@
+@startuml sequence
+
+participant Main
+participant "Command Line" as CommandLine
+participant Options
+participant Maze
+participant Path
+participant Position
+participant MazeSolver
+participant RightHandSolver
+participant RightHandSolverFactory
+participant TremauxSolver
+participant TremauxSolverFactory
+participant BreadthFirstSearchSolver
+participant BreadthFirstSearchSolverFactory
+participant Output
+
+Main -> CommandLine: main(args)
+CommandLine -> Main: args
+Main -> Main: getParserOptions()
+Main -> Options: options
+Main -> RightHandSolverFactory: createSolver()
+RightHandSolverFactory -> RightHandSolver: createSolver()
+Main -> MazeSolver: solveMaze()
+MazeSolver -> RightHandSolver: solve(maze)
+MazeSolver -> Output: path
+Output --> Main: Print result
+
+@enduml
+
