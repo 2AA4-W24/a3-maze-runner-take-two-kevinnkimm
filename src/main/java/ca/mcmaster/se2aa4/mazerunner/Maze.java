@@ -23,7 +23,9 @@ public class Maze {
      * @throws Exception If maze cannot be read, or maze has no start or end
      */
     public Maze(String filePath) throws Exception {
-        logger.debug("Reading the maze from file " + filePath);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Reading the maze from file " + filePath);
+        }
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -156,8 +158,12 @@ public class Maze {
                 }
                 case 'R' -> dir = dir.turnRight();
                 case 'L' -> dir = dir.turnLeft();
+
+                default -> {
+                    break;
+                }
             }
-            logger.debug("Current Position: " + pos);
+            if (logger.isDebugEnabled()) {logger.debug("Current Position: " + pos);}
         }
 
         return pos.equals(endPos);

@@ -10,6 +10,11 @@ public class Path {
      * Initialize an empty Path.
      */
     public Path() {
+        // empty constructor
+    }
+
+    public int getLength() {
+        return path.size();
     }
 
     /**
@@ -106,7 +111,7 @@ public class Path {
         for (int i = 0; i < path.size(); i++) {
             Character current = path.get(i);
             int count = 0;
-            while (i < path.size() && current == path.get(i)) {
+            while (i < path.size() && current.equals(path.get(i))) {
                 count++;
                 i++;
             }

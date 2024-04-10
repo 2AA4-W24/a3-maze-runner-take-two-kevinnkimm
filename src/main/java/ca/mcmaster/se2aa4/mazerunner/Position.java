@@ -40,6 +40,9 @@ public record Position(int x, int y) {
             case RIGHT -> {
                 return this.add(new Position(1, 0));
             }
+            default -> {
+                break;
+            }
         }
         throw new IllegalStateException("Unexpected value: " + this);
     }

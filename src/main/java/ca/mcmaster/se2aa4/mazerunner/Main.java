@@ -1,15 +1,18 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.*; // NO PMD false positive, Main needs to import this to use parsing
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Main {
+public abstract class Main {
 
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner");
+        
+        if (logger.isInfoEnabled()) {
+           logger.info("** Starting Maze Runner");         
+        }
         CommandLineParser parser = new DefaultParser();
 
         CommandLine cmd = null;
@@ -26,18 +29,61 @@ public class Main {
                 } else {
                     System.out.println("incorrect path");
                 }
-            } else {
+            }
+            
+            else if (cmd.hasOption("baseline")) {
+                String baseline = cmd.getOptionValue("baseline");
+                String method = cmd.getOptionValue("method");
+                System.out.println("Activating baseline using: " + baseline);
+                
+                // time spent loading maze
+                long benchmarkStartTime = System.currentTimeMillis();
+                new Maze(filePath);
+                long benchmarkEndTime = System.currentTimeMillis();
+                double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
+                
+                // time spent exploring maze using -baseline
+                long baselineStartTime = System.currentTimeMillis();
+                Path baselinePath = solveMaze(baseline, maze);
+                long baselineEndTime = System.currentTimeMillis();
+                float baselineTime = (float) (baselineEndTime - baselineStartTime);
+
+                // time spent exploring maze using -method
+                long methodStartTime = System.currentTimeMillis();
+                Path methodLinePath = solveMaze(method, maze);
+                long methodEndTime = System.currentTimeMillis();
+                float methodLineTime = (float) (methodEndTime - methodStartTime);
+
+                // for the speed up path
+                float speedUpPath = (float) baselinePath.getLength() / methodLinePath.getLength();
+
+                String formattedLoadTime = String.format("%.2f", benchmarkTime);
+                String formattedBaselineTime = String.format("%.2f", baselineTime);
+                String speedUp = String.format("%.2f", methodLineTime);
+                String newSpeedUp = String.format("%.2f", speedUpPath);
+                
+                
+                System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
+                System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
+                System.out.println("Time spent solving maze method: " + speedUp + " milliseconds");
+                System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodLinePath.getLength() + " = " + newSpeedUp);
+            }
+
+            else {
                 String method = cmd.getOptionValue("method", "righthand");
                 Path path = solveMaze(method, maze);
                 System.out.println(path.getFactorizedForm());
             }
         } catch (Exception e) {
             System.err.println("MazeSolver failed.  Reason: " + e.getMessage());
-            logger.error("MazeSolver failed.  Reason: " + e.getMessage());
-            logger.error("PATH NOT COMPUTED");
+            if (logger.isErrorEnabled()) {
+                logger.error("MazeSolver failed.  Reason: " + e.getMessage());
+                logger.error("PATH NOT COMPUTED");     
+            }
         }
-
-        logger.info("End of MazeRunner");
+        if (logger.isInfoEnabled()) {
+            logger.info("End of MazeRunner");         
+        }
     }
 
     /**
@@ -51,24 +97,32 @@ public class Main {
     private static Path solveMaze(String method, Maze maze) throws Exception {
         MazeSolver solver = null;
         switch (method) {
+            
             case "righthand" -> {
-                logger.debug("RightHand algorithm chosen.");
-                solver = new RightHandSolver();
+                if (logger.isDebugEnabled()) {
+                  logger.debug("RightHand algorithm chosen.");
+                }
+                solver = new RightHandSolver();  
             }
             case "tremaux" -> {
-                logger.debug("Tremaux algorithm chosen.");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Tremaux algorithm chosen.");
+                }
                 solver = new TremauxSolver();
             }
             case "bfs" -> {
-                logger.debug("Tremaux algorithm chosen.");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Tremaux algorithm chosen.");
+                }
                 solver = new BreadthFirstSearchSolver();
             }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }
         }
-
-        logger.info("Computing path");
+        if (logger.isDebugEnabled()) {
+            logger.info("Computing path");
+        }
         return solver.solve(maze);
     }
 
@@ -86,6 +140,7 @@ public class Main {
 
         options.addOption(new Option("p", true, "Path to be verified in maze"));
         options.addOption(new Option("method", true, "Specify which path computation algorithm will be used"));
+        options.addOption(new Option("baseline", true, "Benchmark with algorithms"));
 
         return options;
     }

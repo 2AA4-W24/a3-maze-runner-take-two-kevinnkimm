@@ -66,22 +66,6 @@ public class TremauxSolver implements MazeSolver {
     }
 
     /**
-     * Get the number of neighbors that have at least one mark.
-     *
-     * @param neighbors Neighbors to check
-     * @return Number of marked neighbors
-     */
-    private int nbMarkedNeighbors(List<Position> neighbors) {
-        int nbMarkedNeighbors = 0;
-        for (Position n : neighbors) {
-            if (marks[n.y()][n.x()] != 0) {
-                nbMarkedNeighbors += 1;
-            }
-        }
-        return nbMarkedNeighbors;
-    }
-
-    /**
      * Chose a viable neighbor by sorting the neighbors by the number of
      * marks and picking the first.
      *
@@ -103,16 +87,16 @@ public class TremauxSolver implements MazeSolver {
         List<Position> neighbors = new ArrayList<>();
 
         Position left = pos.add(new Position(-1, 0));
-        if (left.x() >= 0 && !maze.isWall(left)) neighbors.add(left);
+        if (left.x() >= 0 && !maze.isWall(left)) {neighbors.add(left);}
 
         Position right = pos.add(new Position(1, 0));
-        if (right.x() < maze.getSizeX() && !maze.isWall(right)) neighbors.add(right);
+        if (right.x() < maze.getSizeX() && !maze.isWall(right)) {neighbors.add(right);}
 
         Position up = pos.add(new Position(0, -1));
-        if (up.y() >= 0 && !maze.isWall(up)) neighbors.add(up);
+        if (up.y() >= 0 && !maze.isWall(up)) {neighbors.add(up);}
 
         Position down = pos.add(new Position(0, 1));
-        if (down.y() < maze.getSizeY() && !maze.isWall(down)) neighbors.add(down);
+        if (down.y() < maze.getSizeY() && !maze.isWall(down)) {neighbors.add(down);}
 
         return neighbors;
     }
