@@ -31,7 +31,7 @@ public abstract class Main {
                 }
             }
             
-            else if (cmd.hasOption("baseline")) {
+            else if (cmd.hasOption("baseline") & cmd.hasOption("method")) {
                 String baseline = cmd.getOptionValue("baseline");
                 String method = cmd.getOptionValue("method");
                 System.out.println("Activating baseline using: " + baseline);
@@ -41,16 +41,21 @@ public abstract class Main {
                 new Maze(filePath);
                 long benchmarkEndTime = System.currentTimeMillis();
                 double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
-                
+                System.out.println("printing load time: " + benchmarkTime);
+
                 // time spent exploring maze using -baseline
                 long baselineStartTime = System.currentTimeMillis();
                 Path baselinePath = solveMaze(baseline, maze);
                 long baselineEndTime = System.currentTimeMillis();
                 float baselineTime = (float) (baselineEndTime - baselineStartTime);
 
+                System.out.println("printing time spent using -baseline: " + baselineTime );
+                
                 // time spent exploring maze using -method
                 long methodStartTime = System.currentTimeMillis();
+                System.out.println("does this run?");
                 Path methodLinePath = solveMaze(method, maze);
+                System.out.println("Does this ever run?");
                 long methodEndTime = System.currentTimeMillis();
                 float methodLineTime = (float) (methodEndTime - methodStartTime);
 
@@ -67,6 +72,30 @@ public abstract class Main {
                 System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
                 System.out.println("Time spent solving maze method: " + speedUp + " milliseconds");
                 System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodLinePath.getLength() + " = " + newSpeedUp);
+            }
+
+            else if (cmd.hasOption("baseline")) {
+                String baseline = cmd.getOptionValue("baseline");
+                
+                // time spent loading maze
+                long benchmarkStartTime = System.currentTimeMillis();
+                new Maze(filePath);
+                long benchmarkEndTime = System.currentTimeMillis();
+                double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
+
+                // time spent exploring maze using -baseline
+                long baselineStartTime = System.currentTimeMillis();
+                solveMaze(baseline, maze);
+                long baselineEndTime = System.currentTimeMillis();
+                float baselineTime = (float) (baselineEndTime - baselineStartTime);
+                
+                // string format
+                String formattedLoadTime = String.format("%.2f", benchmarkTime);
+                String formattedBaselineTime = String.format("%.2f", baselineTime);
+                
+                // printing method
+                System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
+                System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
             }
 
             else {
