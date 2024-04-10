@@ -33,4 +33,37 @@ class PathTest {
 
         assertEquals("FFFFFFFFFF RRRRRRRRRRR", path.getCanonicalForm());
     }
+
+    @Test
+    void getBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/straight.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "4F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
+    @Test
+    void getTinyBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/tiny.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "3F L 4F R 3F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
+    // @Test
+    // void smallMazeBFS() throws Exception {
+    //     BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+    //     String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/small.maz.txt";
+    //     Maze maze = new Maze(filePath);
+    //     String expectedPath = "F L F R 2F L 6F R 4F R 2F L 2F R 2F L F";
+    //     Path actualPath = bfs.solve(maze);
+    //     String actualPathStr = actualPath.getFactorizedForm();
+    //     assertEquals(expectedPath, actualPathStr);
+    // }
 }

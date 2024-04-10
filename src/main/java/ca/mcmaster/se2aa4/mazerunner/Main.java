@@ -26,7 +26,31 @@ public class Main {
                 } else {
                     System.out.println("incorrect path");
                 }
-            } else {
+            }
+            
+            else if (cmd.hasOption("baseline")) {
+                String baseline = cmd.getOptionValue("baseline");
+                logger.info("Activating baseline using: " + baseline);
+                
+                // time spent loading maze
+                long benchmarkStartTime = System.currentTimeMillis();
+                solveMaze(baseline, maze);
+                long benchmarkEndTime = System.currentTimeMillis();
+                double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
+                
+                // measure time spent exploring maze
+                long baselineStartTime = System.currentTimeMillis();
+                solveMaze(baseline, maze);
+                long baselineEndTime = System.currentTimeMillis();
+                double baselineTime = (baselineEndTime - baselineStartTime);
+                
+                String formattedLoadTime = String.format("%.2f", benchmarkTime);
+                String formattedBaselineTime = String.format("%.2f", baselineTime);
+                System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
+                System.out.println("Time spent solving maze: " + formattedBaselineTime + " milliseconds");
+            }
+
+            else {
                 String method = cmd.getOptionValue("method", "righthand");
                 Path path = solveMaze(method, maze);
                 System.out.println(path.getFactorizedForm());
@@ -38,6 +62,14 @@ public class Main {
         }
 
         logger.info("End of MazeRunner");
+    }
+
+    private static double getSpeedUpTime(String path) {
+        for (int i = 0; i < path.length()-1; i++) {
+
+        }
+
+        return 1;
     }
 
     /**
@@ -67,7 +99,6 @@ public class Main {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }
         }
-
         logger.info("Computing path");
         return solver.solve(maze);
     }
@@ -86,6 +117,7 @@ public class Main {
 
         options.addOption(new Option("p", true, "Path to be verified in maze"));
         options.addOption(new Option("method", true, "Specify which path computation algorithm will be used"));
+        options.addOption(new Option("baseline", true, "Benchmark with algorithms"));
 
         return options;
     }
