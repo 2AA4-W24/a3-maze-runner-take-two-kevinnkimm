@@ -1,5 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
-
+// Node class that represents the direction and position of the graph
 public class Node {
     private Direction direction;
     private Position position;
