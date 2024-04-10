@@ -122,34 +122,33 @@ public abstract class Main {
      * @throws Exception If provided method does not exist
      */
     private static Path solveMaze(String method, Maze maze) throws Exception {
-        MazeSolver solver = null;
+        MazeSolverFactory factory;
         switch (method) {
-            
-            case "righthand" -> {
+            case "righthand":
+                factory = new RightHandSolverFactory();
                 if (logger.isDebugEnabled()) {
-                  logger.debug("RightHand algorithm chosen.");
+                    logger.debug("RightHand algorithm chosen.");
                 }
-                solver = new RightHandSolver();  
-            }
-            case "tremaux" -> {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Tremaux algorithm chosen.");
-                }
-                solver = new TremauxSolver();
-            }
-            case "bfs" -> {
+                break;
+            case "tremaux":
+                factory = new TremauxSolverFactory();
                 if (logger.isDebugEnabled()) {
                     logger.debug("Tremaux algorithm chosen.");
                 }
-                solver = new BreadthFirstSearchSolver();
-            }
-            default -> {
+                break;
+            case "bfs":
+                factory = new BreadthFirstSearchSolverFactory();
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Breadth First Search algorithm chosen.");
+                }
+                break;
+            default:
                 throw new Exception("Maze solving method '" + method + "' not supported.");
-            }
         }
         if (logger.isDebugEnabled()) {
             logger.info("Computing path");
         }
+        MazeSolver solver = factory.createSolver();
         return solver.solve(maze);
     }
 

@@ -40,7 +40,6 @@ public class BreadthFirstSearchSolver implements MazeSolver {
                 }
             }
 
-            
         }
         // for getting previous
         List<Node> list = new ArrayList<>();
@@ -59,7 +58,6 @@ public class BreadthFirstSearchSolver implements MazeSolver {
         return path;
     }
 
-    // could be an issue with my path
     private Path getPath(Node first, Node second, Path previousPath) {
         if (first.getDirection() == second.getDirection()) {
             previousPath.addStep('F');
