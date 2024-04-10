@@ -50,24 +50,23 @@ public abstract class Main {
 
                 // time spent exploring maze using -method
                 long methodStartTime = System.currentTimeMillis();
-                Path methodlinePath = solveMaze(method, maze);
+                Path methodLinePath = solveMaze(method, maze);
                 long methodEndTime = System.currentTimeMillis();
-                float methodlineTime = (float) (methodEndTime - methodStartTime);
+                float methodLineTime = (float) (methodEndTime - methodStartTime);
 
                 // for the speed up path
-                float speedUpPath = (float) baselinePath.getLength() / methodlinePath.getLength();
-                System.out.println("speed up path is: " + speedUpPath);
+                float speedUpPath = (float) baselinePath.getLength() / methodLinePath.getLength();
 
                 String formattedLoadTime = String.format("%.2f", benchmarkTime);
                 String formattedBaselineTime = String.format("%.2f", baselineTime);
-                String speedUp = String.format("%.2f", methodlineTime);
+                String speedUp = String.format("%.2f", methodLineTime);
                 String newSpeedUp = String.format("%.2f", speedUpPath);
                 
                 
                 System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
                 System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
                 System.out.println("Time spent solving maze method: " + speedUp + " milliseconds");
-                System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodlinePath.getLength() + " = " + newSpeedUp);
+                System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodLinePath.getLength() + " = " + newSpeedUp);
             }
 
             else {
