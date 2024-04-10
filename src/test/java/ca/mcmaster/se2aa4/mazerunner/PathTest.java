@@ -56,14 +56,36 @@ class PathTest {
         assertEquals(expectedPath, actualPathStr);
     }
 
-    // @Test
-    // void smallMazeBFS() throws Exception {
-    //     BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
-    //     String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/small.maz.txt";
-    //     Maze maze = new Maze(filePath);
-    //     String expectedPath = "F L F R 2F L 6F R 4F R 2F L 2F R 2F L F";
-    //     Path actualPath = bfs.solve(maze);
-    //     String actualPathStr = actualPath.getFactorizedForm();
-    //     assertEquals(expectedPath, actualPathStr);
-    // }
+    @Test
+    void directMazeBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/direct.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "F R 2F L 3F R F L F R F L 2F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
+    @Test
+    void hugeMazeBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/huge.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "F L 7F R 2F L 4F R 4F L 2F R 6F R 2F L 6F R 4F L 2F R 2F L 10F L 2F R 2F R 2F L 4F R 10F L 2F R 4F L 6F R 2F L 2F R 4F L 2F R 6F L 2F R 2F L 2F R 2F L 2F R 4F L 4F R 2F L 4F R 4F R 2F L 4F L 4F R 2F L 6F R 2F L 2F R 6F L 4F R 2F L 4F R 2F L 2F R 2F L 2F R 4F L 6F R 4F L 4F R 6F L 4F R F L F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
+    @Test
+    void largeMazeBFS() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/large.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "15F R 2F L 8F R 2F L 4F R 2F L 4F R 4F L 6F R 2F L 2F R 2F L 2F R 2F L 2F R 2F L 2F R 2F L 2F R 6F L 2F L 2F R F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
 }

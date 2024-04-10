@@ -30,24 +30,36 @@ public class Main {
             
             else if (cmd.hasOption("baseline")) {
                 String baseline = cmd.getOptionValue("baseline");
+                String method = cmd.getOptionValue("method");
                 logger.info("Activating baseline using: " + baseline);
                 
                 // time spent loading maze
                 long benchmarkStartTime = System.currentTimeMillis();
-                solveMaze(baseline, maze);
+                new Maze(filePath);
                 long benchmarkEndTime = System.currentTimeMillis();
                 double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
                 
-                // measure time spent exploring maze
+                // time spent exploring maze using -baseline
                 long baselineStartTime = System.currentTimeMillis();
-                solveMaze(baseline, maze);
+                Path baselinePath = solveMaze(baseline, maze);
                 long baselineEndTime = System.currentTimeMillis();
                 double baselineTime = (baselineEndTime - baselineStartTime);
-                
+
+                // time spent exploring maze using -method
+                long methodlineStartTime = System.currentTimeMillis();
+                Path methodlinePath = solveMaze(method, maze);
+                long methodlineEndTime = System.currentTimeMillis();
+                double methodlineTime = (methodlineEndTime - methodlineStartTime);
+
                 String formattedLoadTime = String.format("%.2f", benchmarkTime);
                 String formattedBaselineTime = String.format("%.2f", baselineTime);
+                String hiImgonnatouchu = String.format("%.2f", methodlineTime);
+                
                 System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
-                System.out.println("Time spent solving maze: " + formattedBaselineTime + " milliseconds");
+                System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
+                System.out.println("Time spent solving maze method: " + hiImgonnatouchu + " milliseconds");
+                System.out.println("Speed up time is " + baselinePath.getLength()/methodlinePath.getLength());
+
             }
 
             else {
@@ -62,14 +74,6 @@ public class Main {
         }
 
         logger.info("End of MazeRunner");
-    }
-
-    private static double getSpeedUpTime(String path) {
-        for (int i = 0; i < path.length()-1; i++) {
-
-        }
-
-        return 1;
     }
 
     /**

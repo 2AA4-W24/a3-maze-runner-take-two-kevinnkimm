@@ -10,6 +10,11 @@ public class Path {
      * Initialize an empty Path.
      */
     public Path() {
+
+    }
+
+    public int getLength() {
+        return path.size();
     }
 
     /**
