@@ -150,6 +150,17 @@ class PathTest {
         assertEquals(5, movedLeft.getRow());
     }
 
+    @Test
+    void boundaryTest() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/boundary.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "5F L F R 2F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
 
 
 
