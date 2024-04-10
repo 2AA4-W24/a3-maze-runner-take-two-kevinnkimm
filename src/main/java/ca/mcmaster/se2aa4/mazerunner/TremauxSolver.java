@@ -66,22 +66,6 @@ public class TremauxSolver implements MazeSolver {
     }
 
     /**
-     * Get the number of neighbors that have at least one mark.
-     *
-     * @param neighbors Neighbors to check
-     * @return Number of marked neighbors
-     */
-    private int nbMarkedNeighbors(List<Position> neighbors) {
-        int nbMarkedNeighbors = 0;
-        for (Position n : neighbors) {
-            if (marks[n.y()][n.x()] != 0) {
-                nbMarkedNeighbors += 1;
-            }
-        }
-        return nbMarkedNeighbors;
-    }
-
-    /**
      * Chose a viable neighbor by sorting the neighbors by the number of
      * marks and picking the first.
      *

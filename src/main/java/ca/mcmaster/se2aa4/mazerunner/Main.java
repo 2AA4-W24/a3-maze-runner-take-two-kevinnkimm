@@ -9,8 +9,10 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        if (logger.isDebugEnabled()) {
-            logger.info("** Starting Maze Runner");
+        
+        if (logger.isInfoEnabled()) {
+           logger.info("** Starting Maze Runner");         
+        }
         CommandLineParser parser = new DefaultParser();
 
         CommandLine cmd = null;
@@ -32,7 +34,7 @@ public class Main {
             else if (cmd.hasOption("baseline")) {
                 String baseline = cmd.getOptionValue("baseline");
                 String method = cmd.getOptionValue("method");
-                logger.info("Activating baseline using: " + baseline);
+                System.out.println("Activating baseline using: " + baseline);
                 
                 // time spent loading maze
                 long benchmarkStartTime = System.currentTimeMillis();
@@ -66,7 +68,6 @@ public class Main {
                 System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
                 System.out.println("Time spent solving maze method: " + speedUp + " milliseconds");
                 System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodlinePath.getLength() + " = " + newSpeedUp);
-
             }
 
             else {
@@ -76,11 +77,13 @@ public class Main {
             }
         } catch (Exception e) {
             System.err.println("MazeSolver failed.  Reason: " + e.getMessage());
-            logger.error("MazeSolver failed.  Reason: " + e.getMessage());
-            logger.error("PATH NOT COMPUTED");
+            if (logger.isErrorEnabled()) {
+                logger.error("MazeSolver failed.  Reason: " + e.getMessage());
+                logger.error("PATH NOT COMPUTED");     
+            }
         }
-
-        logger.info("End of MazeRunner");
+        if (logger.isInfoEnabled()) {
+            logger.info("End of MazeRunner");         
         }
     }
 
@@ -95,23 +98,32 @@ public class Main {
     private static Path solveMaze(String method, Maze maze) throws Exception {
         MazeSolver solver = null;
         switch (method) {
+            
             case "righthand" -> {
-                logger.debug("RightHand algorithm chosen.");
-                solver = new RightHandSolver();
+                if (logger.isDebugEnabled()) {
+                  logger.debug("RightHand algorithm chosen.");
+                }
+                solver = new RightHandSolver();  
             }
             case "tremaux" -> {
-                logger.debug("Tremaux algorithm chosen.");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Tremaux algorithm chosen.");
+                }
                 solver = new TremauxSolver();
             }
             case "bfs" -> {
-                logger.debug("Tremaux algorithm chosen.");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Tremaux algorithm chosen.");
+                }
                 solver = new BreadthFirstSearchSolver();
             }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }
         }
-        logger.info("Computing path");
+        if (logger.isDebugEnabled()) {
+            logger.info("Computing path");
+        }
         return solver.solve(maze);
     }
 
