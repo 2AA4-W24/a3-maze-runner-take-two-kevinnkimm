@@ -25,6 +25,10 @@ public enum Direction {
             case RIGHT -> {
                 return DOWN;
             }
+            default -> {
+                break;
+            }
+        
         }
         throw new IllegalStateException("Unexpected value: " + this);
     }
@@ -47,6 +51,9 @@ public enum Direction {
             }
             case RIGHT -> {
                 return UP;
+            }
+            default -> {
+                break;
             }
         }
         throw new IllegalStateException("Unexpected value: " + this);
