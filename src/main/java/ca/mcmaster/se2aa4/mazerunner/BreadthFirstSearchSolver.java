@@ -12,8 +12,7 @@ public class BreadthFirstSearchSolver implements MazeSolver {
     public Path solve(Maze maze) {
         Queue<Node> queue = new LinkedList<>();
         boolean[][] visited = new boolean[maze.getSizeY()][maze.getSizeX()];
-        HashMap<Position, Node> newMap = new HashMap<>(); // [1] is prev Position rlly important said Alina she
-                                                          // wants say it louder :D shes laughing is she okay
+        HashMap<Position, Node> newMap = new HashMap<>();
         Position start = maze.getStart();
         Node startNode = new Node(Direction.RIGHT, start);
         Node endNode = new Node(Direction.RIGHT, start);
