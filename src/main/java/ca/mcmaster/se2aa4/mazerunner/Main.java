@@ -1,6 +1,6 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import org.apache.commons.cli.*; // NO PMD false positive, Main needs to import this to use parsing
+import org.apache.commons.cli.*; // PMD false positive (UnnecessaryImport), Main needs to import this to use parsing
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,23 +31,25 @@ public abstract class Main {
                 }
             }
             
-            else if (cmd.hasOption("baseline")) {
+            else if (cmd.hasOption("baseline") & cmd.hasOption("method")) {
                 String baseline = cmd.getOptionValue("baseline");
                 String method = cmd.getOptionValue("method");
                 System.out.println("Activating baseline using: " + baseline);
+                System.out.println("Activating method using: " + method);
                 
                 // time spent loading maze
                 long benchmarkStartTime = System.currentTimeMillis();
                 new Maze(filePath);
                 long benchmarkEndTime = System.currentTimeMillis();
                 double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
-                
+
                 // time spent exploring maze using -baseline
                 long baselineStartTime = System.currentTimeMillis();
                 Path baselinePath = solveMaze(baseline, maze);
                 long baselineEndTime = System.currentTimeMillis();
                 float baselineTime = (float) (baselineEndTime - baselineStartTime);
 
+                
                 // time spent exploring maze using -method
                 long methodStartTime = System.currentTimeMillis();
                 Path methodLinePath = solveMaze(method, maze);
@@ -57,16 +59,41 @@ public abstract class Main {
                 // for the speed up path
                 float speedUpPath = (float) baselinePath.getLength() / methodLinePath.getLength();
 
+                // rounding to 2 decimal
                 String formattedLoadTime = String.format("%.2f", benchmarkTime);
                 String formattedBaselineTime = String.format("%.2f", baselineTime);
                 String speedUp = String.format("%.2f", methodLineTime);
                 String newSpeedUp = String.format("%.2f", speedUpPath);
                 
-                
+                // printing stdout of loading file, solving maze using baseline and method, and speed up time
                 System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
                 System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
                 System.out.println("Time spent solving maze method: " + speedUp + " milliseconds");
                 System.out.println("Speed up time is baseline/method ->  " + baselinePath.getLength() + "/" + methodLinePath.getLength() + " = " + newSpeedUp);
+            }
+            // only using baseline command
+            else if (cmd.hasOption("baseline")) {
+                String baseline = cmd.getOptionValue("baseline");
+                
+                // time spent loading maze
+                long benchmarkStartTime = System.currentTimeMillis();
+                new Maze(filePath);
+                long benchmarkEndTime = System.currentTimeMillis();
+                double benchmarkTime = benchmarkEndTime - benchmarkStartTime;
+
+                // time spent exploring maze using -baseline
+                long baselineStartTime = System.currentTimeMillis();
+                solveMaze(baseline, maze);
+                long baselineEndTime = System.currentTimeMillis();
+                float baselineTime = (float) (baselineEndTime - baselineStartTime);
+                
+                // rounding to 2 decimal
+                String formattedLoadTime = String.format("%.2f", benchmarkTime);
+                String formattedBaselineTime = String.format("%.2f", baselineTime);
+                
+                // printing method
+                System.out.println("Time spent loading file: " + formattedLoadTime + " milliseconds");
+                System.out.println("Time spent solving maze baseline: " + formattedBaselineTime + " milliseconds");
             }
 
             else {

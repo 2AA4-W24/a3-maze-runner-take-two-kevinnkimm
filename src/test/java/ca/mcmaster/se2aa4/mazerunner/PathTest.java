@@ -3,6 +3,9 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PathTest {
     @Test
@@ -88,4 +91,77 @@ class PathTest {
         String actualPathStr = actualPath.getFactorizedForm();
         assertEquals(expectedPath, actualPathStr);
     }
+    // tests whether map is generated with the correct dimensions
+    @Test
+    void mapTest() throws Exception {
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/straight.maz.txt";
+        Maze maze = new Maze(filePath);
+        assertEquals(5, maze.getSizeX());
+        assertEquals(5, maze.getSizeY());
+    }
+    // should not return anything but an exception
+    @Test
+    void falseMapTest() throws Exception {
+        assertThrows(Exception.class, () -> {
+            Maze maze = new Maze("/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/false.maz.txt");
+            System.out.println(maze.getEnd());
+        });
+    }
+
+    // tests the validity of path
+    @Test
+    void validatePath() throws Exception {
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/straight.maz.txt";
+        Maze maze = new Maze(filePath);
+        Path validPath = new Path("4F");
+        Path invalidPath = new Path("3F");
+        assertTrue(maze.validatePath(validPath));
+        assertFalse(maze.validatePath(invalidPath));
+    }
+    
+    // tests the position and direction of the node created
+    @Test
+    void nodeCreation() {
+        Position position = new Position(4, 12);
+        Node node = new Node(Direction.UP, position);
+
+        assertEquals(Direction.UP, node.getDirection());
+        assertEquals(position, node.getPosition());
+    }
+    // tests the movement 
+    @Test
+    void testPositionMovement() {
+        Position startPos = new Position(3, 5);
+
+        Position movedUp = startPos.move(Direction.UP);
+        assertEquals(3, movedUp.getColumn());
+        assertEquals(4, movedUp.getRow());
+
+        Position movedRight = startPos.move(Direction.RIGHT);
+        assertEquals(4, movedRight.getColumn());
+        assertEquals(5, movedRight.getRow());
+
+        Position movedDown = startPos.move(Direction.DOWN);
+        assertEquals(3, movedDown.getColumn());
+        assertEquals(6, movedDown.getRow());
+
+        Position movedLeft = startPos.move(Direction.LEFT);
+        assertEquals(2, movedLeft.getColumn());
+        assertEquals(5, movedLeft.getRow());
+    }
+
+    @Test
+    void boundaryTest() throws Exception {
+        BreadthFirstSearchSolver bfs = new BreadthFirstSearchSolver();
+        String filePath = "/Users/kevinkim/a3-maze-runner-take-two-kevinnkimm/examples/boundary.maz.txt";
+        Maze maze = new Maze(filePath);
+        String expectedPath = "5F L F R 2F";
+        Path actualPath = bfs.solve(maze);
+        String actualPathStr = actualPath.getFactorizedForm();
+        assertEquals(expectedPath, actualPathStr);
+    }
+
+
+
+
 }
