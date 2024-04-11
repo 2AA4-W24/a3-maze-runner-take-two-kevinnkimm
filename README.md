@@ -1,10 +1,12 @@
 # Assignment A1 - Maze Runner
 
-* **Student**: [FIRSTNAME LASTNAME](MACID@mcmaster.ca)
+* **Student**: [Chang Hyun](kimc91@mcmaster.ca)
 * **Program**: B. Eng. In Software Engineering
 * **Course code**: SFWRENG 2AA4
 * **Course Title**: Software Design I - Introduction to Software Development
 * Term: *Level II - Winter 2024*
+
+Credits to Alexandre for providing the a1 solution
 
 ## Business Logic Specification
 
