@@ -22,6 +22,7 @@ public class Maze {
      * @param filePath File path of the maze file
      * @throws Exception If maze cannot be read, or maze has no start or end
      */
+     
     public Maze(String filePath) throws Exception {
         if (logger.isDebugEnabled()) {
             logger.debug("Reading the maze from file " + filePath);

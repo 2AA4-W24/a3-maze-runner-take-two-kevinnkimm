@@ -1,0 +1,74 @@
+@startuml name
+
+abstract class Main {
+    + main(args: String[]): void
+    + solveMaze(method, maze): Path
+    + getParserOptions(): Options
+}
+
+class Maze {
+    + Maze(filePath: String)
+    + isWall(pos: Position): Boolean
+    + validatePath(path: Path): Boolean
+    + getStart(): Position
+    + getEnd(): Position
+    + getSizeX(): int
+    + getSizeY(): int
+}
+
+class Path {
+    + Path(pathStr: String)
+    + expandFactorizedStringPath(path: String): String
+    + addStep(step: Character): void
+    + getCanonicalForm(): String
+    + getFactorizedForm(): String
+}
+
+class Position {
+    + Position(x: int, y: int)
+    + add(other: Position): Position
+    + getRow(): int
+    + getColumn(): int
+    + move(direction: Direction): Position
+}
+
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT;
+    
+    + turnRight(): Direction
+    + turnLeft(): Direction
+}
+
+class Node {
+    - direction: Direction
+    - position: Position
+
+    + Node(direction: Direction, position: Position)
+    + getDirection(): Direction
+    + getPosition(): Position
+}
+
+Main --> Maze
+Main *-- Path : contains
+Main *-- Position : has
+Main --> MazeSolver
+Main --> MazeSolverFactory
+
+BreadthFirstSearchSolver --> Node
+BreadthFirstSearchSolver --> Direction
+TremauxSolver --> Direction
+Position --> Direction
+
+
+class RightHandSolver implements MazeSolver
+class TremauxSolver implements MazeSolver
+class BreadthFirstSearchSolver implements MazeSolver
+
+class RightHandSolverFactory implements MazeSolverFactory
+class TremauxSolverFactory implements MazeSolverFactory
+class BreadthFirstSearchSolverFactory implements MazeSolverFactory
+
+@enduml
